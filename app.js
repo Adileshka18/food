@@ -7,7 +7,7 @@ var mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/tc2024')
 
 var session = require("express-session")
-
+var MongoStore = require('connect-mongo');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var foods = require('./routes/foods');
@@ -25,12 +25,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.use(session({
     secret: "Foods",
     cookie:{maxAge:60*1000},
     proxy: true,
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    store: MongoStore.create({mongoUrl:
+    'mongodb://localhost/tc2024'})
     }))
     
 
