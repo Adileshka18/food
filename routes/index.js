@@ -13,7 +13,7 @@ router.get('/logreg', function(req, res, next) {
     res.render('logreg',{title: 'Вход', error: null});
     });
     
-    /* POST login/registration page. */
+    
 
 
 /* POST login/registration page. */
@@ -42,6 +42,13 @@ router.post('/logreg', async function(req, res, next) {
 
     }
 });
+
+/* POST logout. */
+router.post('/logout', function(req, res, next) {
+    req.session.destroy();
+    res.locals.user = null;
+    res.redirect('/');
+    });
 
 module.exports = router;
 
